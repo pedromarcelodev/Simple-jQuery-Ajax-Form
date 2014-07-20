@@ -24,6 +24,7 @@
 
 			$.simpleAjaxForm.vars = $.extend({}, defaults, options);
 
+
 			if (typeof $.simpleAjaxForm.vars.success !== 'function')
 			{
 				$.simpleAjaxForm.vars.success = function(data)
@@ -54,7 +55,7 @@
 
 			form.submit(function()
 			{
-				$.simpleAjaxForm.vars.before();
+				
 		
 				$.ajax(
 					form.attr('action'),
@@ -64,18 +65,24 @@
 						data: form.serialize(),
 						dataType: 'html',
 						context: jQuery($.simpleAjaxForm.vars.context),
-						success: function(data)
+						beforeSend: function()
 						{
-							$.simpleAjaxForm.vars.success(data);
-							$.simpleAjaxForm.vars.after();
-						},
-						error: function(data)
-						{
-							$.simpleAjaxForm.vars.error(data);
-							$.simpleAjaxForm.vars.after();
+							$.simpleAjaxForm.vars.before();
 						}
 					}
-				);
+				)
+				.done(function(data, textStatus, jqXHR)
+				{
+					$.simpleAjaxForm.vars.success(data);
+				})
+				.fail(function(jqXHR, textStatus, errorThrown)
+				{
+					$.simpleAjaxForm.vars.error("Error " + jqXHR.status + ": " + errorThrown);
+				})
+				.always(function(data, textStatus, jqXHR)
+				{
+					$.simpleAjaxForm.vars.after();
+				});
 				
 				return false;
 			});
