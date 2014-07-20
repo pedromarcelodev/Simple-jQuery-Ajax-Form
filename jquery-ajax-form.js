@@ -61,7 +61,7 @@
 					form.attr('action'),
 					{
 						type: form.attr('method'),
-						statusCode: $.extend({}, $.simpleAjaxForm.vars.statusCode),
+						statusCode: $.simpleAjaxForm.vars.statusCode,
 						data: form.serialize(),
 						dataType: 'html',
 						context: jQuery($.simpleAjaxForm.vars.context),
@@ -89,15 +89,6 @@
 		}
 	});
 })(jQuery);
-
-(function($){
-	$.extend($.fn, {
-		simpleAjaxFormSubmit: function(options)
-		{
-			return $(this).simpleAjaxForm(options);
-		}
-	});
-});
 
 (function ($)
 {
