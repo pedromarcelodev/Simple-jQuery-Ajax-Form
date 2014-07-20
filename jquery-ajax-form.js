@@ -16,8 +16,8 @@
 				},
 				before: function(){},
 				after: function(){},
-				success: function(data){},
-				erro: function(data){}
+				success: null,
+				erro: null
 			};
 
 			if (options === undefined) options = {};
